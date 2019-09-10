@@ -47,32 +47,34 @@ def apply_coupons(cart, coupons)
     coupons.each do |coupon|
         if (cart.keys).include? coupon[:item]
 
-            if cart["#{coupon[:item]} W/COUPON"]
+            item_with_coupon = "#{coupon[:item]} W/COUPON"
 
-                cart["#{coupon[:item]} W/COUPON"][:count] += coupon[:num]
+            # if cart["#{coupon[:item]} W/COUPON"]
 
-                cart[coupon[:item]][:count] -= coupon[:num]
+            #     cart["#{coupon[:item]} W/COUPON"][:count] += coupon[:num]
 
-            end
+            #     cart[coupon[:item]][:count] -= coupon[:num]
+
+            # end
 
             if coupon[:num] < cart[coupon[:item]][:count]
-
-                cart["#{coupon[:item]} W/COUPON"] = {
+                
+                cart[item_with_coupon] = {
                     price: coupon[:cost]/coupon[:num],
                     clearance: cart[coupon[:item]][:clearance],
                     count: coupon[:num]
                 }
 
-                cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
+                cart[coupon[:item]][:count] -= cart[item_with_coupon][:count]
 
             else
-                cart["#{coupon[:item]} W/COUPON"] = {
+                cart[item_with_coupon] = {
                     price: coupon[:cost]/coupon[:num],
                     clearance: cart[coupon[:item]][:clearance],
                     count: cart[coupon[:item]][:count]
                 }
 
-                cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
+                cart[coupon[:item]][:count] -= cart[item_with_coupon][:count]
             end
         end
     end
