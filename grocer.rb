@@ -1,4 +1,4 @@
-# [
+# cart = [
 #   {"AVOCADO" => {:price => 3.00, :clearance => true }},
 #   {"AVOCADO" => {:price => 3.00, :clearance => true }},
 #   {"KALE"    => {:price => 3.00, :clearance => false}}
@@ -29,8 +29,30 @@ def consolidate_cart(cart)
     new_hash
 end
 
+# cart = {
+#   "AVOCADO" => {:price => 3.00, :clearance => true, :count => 3},
+#   "KALE"    => {:price => 3.00, :clearance => false, :count => 1}
+# }
+
+# coupons =
+#     [
+#       {:item => "AVOCADO", :num => 2, :cost => 5.00},
+#       {:item => "BEER", :num => 2, :cost => 20.00},
+#       {:item => "CHEESE", :num => 3, :cost => 15.00}
+#     ]
+
+
 def apply_coupons(cart, coupons)
-  # code here
+    coupons.each do |coupon|
+        if (cart.keys).include? coupon[:item]
+            cart["#{coupon[:item]} W/ COUPON"] = {
+                price: coupon[:cost]/coupon[:num],
+                clearance: cart[coupon[:item]][:clearance],
+                count: cart[coupon[:item]][:count]
+            }
+        end
+    end
+    cart
 end
 
 def apply_clearance(cart)
