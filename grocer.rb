@@ -81,7 +81,11 @@ end
 
 def checkout(cart, coupons)
   consol_cart = consolidate_cart(cart)
-#   consol_cart_coupons_applied = apply_coupons(consol_cart, coupons)
-#   consol_cart_clearance_applied = apply_clearance(consol_cart_coupons_applied)
+  consol_cart_coupons_applied = apply_coupons(consol_cart, coupons)
+  consol_cart_clearance_applied = apply_clearance(consol_cart_coupons_applied)
 
+  total = 0.0
+
+  cart_with_discounts_applied.keys.each do |item|
+    total += cart_with_discounts_applied[item][:price] * cart_with_discounts_applied[item][:count]
 end
