@@ -45,13 +45,24 @@ end
 def apply_coupons(cart, coupons)
     coupons.each do |coupon|
         if (cart.keys).include? coupon[:item]
-            cart["#{coupon[:item]} W/COUPON"] = {
-                price: coupon[:cost]/coupon[:num],
-                clearance: cart[coupon[:item]][:clearance],
-                count: cart[coupon[:item]][:count]
-            }
+            if coupon[:num] < cart[coupon[:item]][:count]
+                
+                cart["#{coupon[:item]} W/COUPON"] = {
+                    price: coupon[:cost]/coupon[:num],
+                    clearance: cart[coupon[:item]][:clearance],
+                    count: cart[coupon[:item]][:count] - coupon[:num]
+                }
 
-            cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
+                cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
+            else
+                cart["#{coupon[:item]} W/COUPON"] = {
+                    price: coupon[:cost]/coupon[:num],
+                    clearance: cart[coupon[:item]][:clearance],
+                    count: cart[coupon[:item]][:count]
+                }
+
+                cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
+            end
         end
     end
     cart
