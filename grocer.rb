@@ -59,6 +59,7 @@ def apply_coupons(cart, coupons)
 
                 if cart["#{coupon[:item]} W/COUPON"]
                     cart["#{coupon[:item]} W/COUPON"][:num] += coupon[:num]
+                end
 
             else
                 cart["#{coupon[:item]} W/COUPON"] = {
