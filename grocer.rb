@@ -48,33 +48,45 @@ def apply_coupons(cart, coupons)
 
         if (cart.keys).include? coupon[:item]
 
-            item_with_coupon = "#{coupon[:item]} W/COUPON"
+            if cart[coupon[:item]][:count] >= coupon[:num]
+                item_with_coupon = "#{coupon[:item]} W/COUPON"
 
-            if cart[item_with_coupon] && cart[item_with_coupon][:count] >= coupon[:num]
-
-                cart[item_with_coupon][:count] += coupon[:num]
-
-            end
-
-            if coupon[:num] < cart[coupon[:item]][:count]
-
-                cart[item_with_coupon] = {
-                    price: coupon[:cost]/coupon[:num],
-                    clearance: cart[coupon[:item]][:clearance],
-                    count: coupon[:num]
-                }
-
-                cart[coupon[:item]][:count] -= cart[item_with_coupon][:count]
-
-            else
-                cart[item_with_coupon] = {
-                    price: coupon[:cost]/coupon[:num],
-                    clearance: cart[coupon[:item]][:clearance],
-                    count: cart[coupon[:item]][:count]
-                }
-
+                if cart[item_with_coupon]
+                    cart[item_with_coupon][:count] += coupon[:num]
+                else
+                  cart[item_with_coupon] = {
+                      price: coupon[:cost] / coupon[:num],
+                      clearance: cart[coupon[:item]][:clearance],
+                      count: coupon[:num]
+                  }
+                end
                 cart[coupon[:item]][:count] -= cart[item_with_coupon][:count]
             end
+
+
+
+
+
+
+            # if coupon[:num] < cart[coupon[:item]][:count]
+
+            #     cart[item_with_coupon] = {
+            #         price: coupon[:cost]/coupon[:num],
+            #         clearance: cart[coupon[:item]][:clearance],
+            #         count: coupon[:num]
+            #     }
+
+            #     cart[coupon[:item]][:count] -= cart[item_with_coupon][:count]
+
+            # else
+            #     cart[item_with_coupon] = {
+            #         price: coupon[:cost]/coupon[:num],
+            #         clearance: cart[coupon[:item]][:clearance],
+            #         count: cart[coupon[:item]][:count]
+            #     }
+
+            #     cart[coupon[:item]][:count] -= cart[item_with_coupon][:count]
+            # end
         end
     end
     cart
