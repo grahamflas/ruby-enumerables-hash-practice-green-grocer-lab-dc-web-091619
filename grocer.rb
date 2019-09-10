@@ -71,9 +71,9 @@ def apply_coupons(cart, coupons)
 end
 
 def apply_clearance(cart)
-    cart.each do |item|
-        if item.values[0][:clearance]
-           price = item.values[0][:price]
+    cart.keys.each do |item|
+        if cart[item][:clearance]
+           price = cart[item][:price]
            price -= (price * 0.2).round(2)
         end
     end
