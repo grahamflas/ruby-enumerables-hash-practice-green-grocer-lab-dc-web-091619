@@ -2,11 +2,15 @@ def consolidate_cart(cart)
     new_hash = Hash.new
 
     cart.each do |item|
-        new_hash[item.keys[0]] = {
-            price: item.values[0][:price],
-            clearance: item.values[0][:clearance],
-            count: 1
-        }
+        if new_hash[item.keys[0]]
+            new_hash[item.keys[0]][:count] += 1
+        else
+            new_hash[item.keys[0]] = {
+                price: item.values[0][:price],
+                clearance: item.values[0][:clearance],
+                count: 1
+            }
+        end
     end
     new_hash
 end
