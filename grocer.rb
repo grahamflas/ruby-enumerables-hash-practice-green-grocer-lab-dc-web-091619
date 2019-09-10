@@ -57,10 +57,6 @@ def apply_coupons(cart, coupons)
 
                 cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
 
-                # if cart["#{coupon[:item]} W/COUPON"]
-                #     cart["#{coupon[:item]} W/COUPON"][:num] += coupon[:num]
-                # end
-
             else
                 cart["#{coupon[:item]} W/COUPON"] = {
                     price: coupon[:cost]/coupon[:num],
@@ -68,6 +64,11 @@ def apply_coupons(cart, coupons)
                     count: cart[coupon[:item]][:count]
                 }
 
+                cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
+            end
+
+            if cart["#{coupon[:item]} W/COUPON"]
+                cart["#{coupon[:item]} W/COUPON"][:num] += coupon[:num]
                 cart[coupon[:item]][:count] -= cart["#{coupon[:item]} W/COUPON"][:count]
             end
         end
