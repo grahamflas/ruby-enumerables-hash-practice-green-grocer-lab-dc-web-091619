@@ -49,13 +49,13 @@ def apply_coupons(cart, coupons)
 
             item_with_coupon = "#{coupon[:item]} W/COUPON"
 
-            # if cart["#{coupon[:item]} W/COUPON"]
+            if cart[item_with_coupon]
 
-            #     cart["#{coupon[:item]} W/COUPON"][:count] += coupon[:num]
+                cart[item_with_coupon][:count] += coupon[:num]
 
-            #     cart[coupon[:item]][:count] -= coupon[:num]
+                cart[coupon[:item]][:count] -= coupon[:num]
 
-            # end
+            end
 
             if coupon[:num] < cart[coupon[:item]][:count]
 
