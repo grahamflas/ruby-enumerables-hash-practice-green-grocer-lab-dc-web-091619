@@ -86,8 +86,8 @@ def checkout(cart, coupons)
 
   total = 0.0
 
-  cart_with_clearance_applied.keys.each do |item|
-    total += cart_with_clearance_applied[item][:price] * cart_with_clearance_applied[item][:count]
+  consol_cart_clearance_applied.keys.each do |item|
+    total += consol_cart_clearance_applied[item][:price] * consol_cart_clearance_applied[item][:count]
   end
 
 end
